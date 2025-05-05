@@ -7,8 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.testcontainers.containers.MongoDBContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Map;
 
@@ -23,7 +28,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
+@Testcontainers
 public class DownStreamTests {
+
+    @Container
+    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0");
+
+    @DynamicPropertySource
+    static void setMongoUri(DynamicPropertyRegistry registry) {
+        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+    }
+
     /**
      * Db manager
      */
@@ -49,7 +64,6 @@ public class DownStreamTests {
     public void setUp() {
         downStreamRepository.deleteAll();
     }
-
 
     /**
      * Saves 2 Log records into db and checks them.
@@ -77,7 +91,8 @@ public class DownStreamTests {
     /**
      * Checks the build version endpoint
      * Provides information about current code we built on
-     * build version consists the closest.tag.name closest.tag.commit.count commit.id.abbrev
+     * build version consists the closest.tag.name closest.tag.commit.count
+     * commit.id.abbrev
      *
      * @throws Exception by mockMvc perform
      */

@@ -34,6 +34,9 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.4")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
+    testImplementation("org.testcontainers:testcontainers:1.19.1")
+    testImplementation("org.testcontainers:junit-jupiter:1.19.1")
+    testImplementation("org.testcontainers:mongodb:1.19.1")
 }
 
 gitProperties {

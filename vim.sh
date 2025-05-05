@@ -1,0 +1,1 @@
+vim -c "source ./vim/.vimrc" -c "source ./vim/syntax.vim" ./vim/command.pcom
