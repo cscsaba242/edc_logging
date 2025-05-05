@@ -8,11 +8,6 @@ services:
       - "${db_port}:${db_port}"
     volumes:
       - mongo_data:/data/db
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
       
   backend:
     build:
@@ -22,8 +17,7 @@ services:
     ports:
       - "${server_port}:${server_port}"
     depends_on:
-      mongo:
-        condition: service_healthy      
+      - mongo
     environment:
       SPRING_DATA_MONGODB_URI: "mongodb://mongo:${db_port}/${app_name}"
       SPRING_APPLICATION_NAME: "${app_name}"
