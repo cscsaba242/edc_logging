@@ -8,3 +8,13 @@
 - version name based on git commit and tag
 - testing endpoints
 - java doc generation
+
+## [0.2.0] - 2025-05-05
+### Added
+- mongo test container for tests
+- docker compose files
+
+## [0.3.0] - 2025-05-06
+### Added
+- adding prototype helm chart
+- config, doc changes

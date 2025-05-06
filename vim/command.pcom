@@ -71,6 +71,7 @@
                 docker exec -it my_container bash
                 docker logs ?container
                 docker stop $(docker ps -q)
+                docker rm -f $(docker ps -aq)
 
                 docker pull registry.k8s.io/ingress-nginx/controller:1.12.1
                 docker pull registry.k8s.io/ingress-nginx/kube-webhook-certgen:1.5.2

@@ -16,7 +16,16 @@ through web-api interfaces for:
 
 [Tractus-X EDC Development Documentation] https://github.com/eclipse-tractusx/tractusx-edc/blob/main/docs/development/README.md
 
-## Main build steps
+## Build and run
 
-Important: to run build steps they must have parameters (and available Mongo db)
-`./gradlew [test|build|bootRun] -Dmongo.host=localhost -Dmongo.port=27017 -Dserver.port=8080`
+`./gradlew build`
+
+`docker compose up`
+
+## Test
+
+`curl -G http://localhost:8080/downstream/getBuildVersion`
+
+# Open API documentation
+
+http://<host>:8080/swagger-ui.html
